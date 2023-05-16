@@ -40,7 +40,7 @@ SELECT * FROM user_tbl WHERE user_num > 2 AND user_height < 178;
 -- 주의) WHERE를 걸지 않으면 해당 컬럼의 모든 값을 다 통일시켜버림
 UPDATE user_tbl SET user_address = '제주';
 -- WHERE 절 없는 UPDATE 구문 실행방지, 0 대입시 해제, 1 대입시 실행
-set sql_safe_updates=1;
+SET sql_safe_updates = 1;
 
 -- 테이블이 존재하지 않다면 삭제구문을 실행하지 않아 에러가 발생하지 않음
 DROP TABLE IF EXISTS user_tbl;
@@ -124,3 +124,21 @@ DELETE FROM user_tbl WHERE user_num = 4;
 -- 만약 추가적인 설정 없이 user_tbl의 4번 유저를 삭제하고 싶다면
 -- 먼저 buy_tbl의 4번 유저가 남긴 구매내역을 모두 삭제해야 함
 DELETE FROM buy_tbl WHERE user_num = 4;
+
+-- 임시 테이블 user_tbl2 확인
+SELECT * FROM user_tbl2;
+SELECT * FROM user_tbl;
+
+DELETE FROM user_tbl2 WHERE entry_date > '2020-08-15';
+
+DELETE FROM user_tbl2 WHERE entry_date = '2020-08-03';
+
+INSERT INTO user_tbl VALUES (NULL, '이자바', 1994, '서울', 164, '2020-09-01');
+INSERT INTO user_tbl VALUES (NULL, '신디비', 1992, '경기', 178, '2020-09-01');
+INSERT INTO user_tbl VALUES (NULL, '최다희', 1996, '경기', 158, '2020-09-01');
+
+-- DISTINCT는 특정 컬럼에 들어있는 데이터의 "종류"만 한 번씩 나열함
+SELECT DISTINCT user_birth_year FROM user_tbl;
+
+-- 컬럼 이름 바꿔서 조회
+SELECT user_name FROM user_tbl;
